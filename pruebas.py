@@ -68,3 +68,7 @@ def pantalla():
     mainpos(tortugagrid,screensize)
     xbar(tortugagrid,screensize)
     ybar(tortugagrid,screensize)
+
+
+
+
