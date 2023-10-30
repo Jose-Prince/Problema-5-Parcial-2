@@ -139,21 +139,3 @@ def esfera(radio, part):
     
 
 
-
-
-root = tk.Tk()
-canvas = tk.Canvas(root)
-canvas.config(width=800, height=600)
-canvas.grid(row=1,column=1,rowspan=40 )
-screen = turtle.TurtleScreen(canvas)
-pantalla()
-
-
-
-plano(1)
-part = turtle.RawTurtle(screen, shape="circle")
-
-particula(20, part)
-
-
-esfera(200, part)
