@@ -95,10 +95,22 @@ def pantalla():
     ybar(tortugagrid,screensize)
     zbar(tortugagrid,screensize)
 
+def seleccionar_elementos(elegido):
+    if elegido == "Personalizado":
+        charge.grid(row=23,column=0)
+        entrycargapart.grid(row=24, column=0)
+        massLabel.grid(row=25,column=0)
+        masa.grid(row=26,column=0)
+
+    else :
+        charge.grid_remove()
+        entrycargapart.grid_remove()
+        massLabel.grid_remove()
+        masa.grid_remove()
+
 def check_button_command(entrycargaesfera):
     
     if (eleccion.get() == 1):
-        figure.esfera(esferas, planos)
         datos.config(text="Se selecciono la esfera")
         dato1.config(text="Escribir el radio (m)")
         dato1.grid(row=5,column=0)
@@ -106,6 +118,7 @@ def check_button_command(entrycargaesfera):
         dato2.config(text="Escribir la carga negativa (C)")
         dato2.grid(row=7,column=0)
         entrycargaesfera.grid(row=8,column=0)
+        figure.esfera(esferas, planos)
         
         
 
@@ -115,11 +128,11 @@ def check_button_command(entrycargaesfera):
         dato2.grid_remove()
         entrycargaesfera.grid_remove()
         entryradio.grid_remove()
-        figure.plano( planos, esferas)
         datos.config(text="Se selecciono el plano infinito")
         dato1.config(text="Escribir la densidad superficial de carga (C/m^2)")
         dato1.grid(row=5,column=0)
         entrydens.grid(row=6,column=0)
+        figure.plano( planos, esferas)
     
     if (eleccion.get() == 0 ):
         datos.config(text="Esperando la selección de la carga central....")
@@ -134,11 +147,11 @@ def check_button_command(entrycargaesfera):
 def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, esfera, plano):
     #plano
     if(eleccion == 2):
-        rapi.config(text="Ingrese la rapidez inicial")
+        speedLabel.config(text="Ingrese la rapidez inicial")
 
         if((int(rapidez) > 300000000)):
             rapidez = 300000000
-            rapi.config(text="Ilegalidad: cantidad mayor a la velocidad de la luz\n Se ha puesto por default 3*10^8 m/s")
+            speedLabel.config(text="Ilegalidad: cantidad mayor a la velocidad de la luz\n Se ha puesto por default 3*10^8 m/s")
 
         cplano.cargaparticula = int(carga)
         cplano.densidad = int(densidad)
@@ -149,9 +162,7 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
         part = turtle.RawTurtle(screen, shape="circle")
         figure.fparticula(int(distanciap), part, color="blue")
 
-        
-
-
+    
     #esfera
     if(eleccion == 1):
         cesfera.cargaparticula = carga
@@ -199,7 +210,7 @@ if __name__ == "__main__":
     
     root = tk.Tk()
     eleccion = tk.IntVar()
-    names = ["Protones", "Positrones", "Berilio-8", "Helio-4", "Alfa triplemente cargada", "Núcleo de carbono", "Núcleo de oxígeno","Custom"]
+    names = ["Protón", "Positrón", "Berilio-8", "Helio-4", "Alfa triplemente cargada", "Núcleo de carbono", "Núcleo de oxígeno","Personalizado"]
 
     particula = tk.StringVar()
     particula.set(names[0])
@@ -239,17 +250,15 @@ if __name__ == "__main__":
 
 
     tk.Label(root, text="Seleccione la partícula que quiera disparar", font=("Arial", 12)).grid(row=10,column=0)
-    tk.OptionMenu(root, particula ,*names).grid(row=11, column=0)
+    tk.OptionMenu(root, particula ,*names, command = lambda _: seleccionar_elementos(particula.get())).grid(row=11, column=0)
     #nombrepart = particula.get()
     tk.Label(root, text="Datos Importantes", font=("Arial", 12)).grid(row=22,column=0)
-    tk.Label(root, text="Ingrese la carga", font=("Arial", 12)).grid(row=23,column=0)
+    charge = tk.Label(root, text="Ingrese la carga", font=("Arial", 12))
     entrycargapart = tk.Entry(root)
-    entrycargapart.grid(row=24, column=0)
-    tk.Label(root, text="Ingrese la masa", font=("Arial", 12)).grid(row=25,column=0)
+    massLabel = tk.Label(root, text="Ingrese la masa", font=("Arial", 12))
     masa = tk.Entry(root)
-    masa.grid(row=26,column=0)
-    rapi = tk.Label(root, text="Ingrese la rapidez inicial", font=("Arial", 12))
-    rapi.grid(row=27,column=0)
+    speedLabel = tk.Label(root, text="Ingrese la rapidez inicial", font=("Arial", 12))
+    speedLabel.grid(row=27,column=0)
     rapidez = tk.Entry(root)
     rapidez.grid(row=28, column=0)
     
