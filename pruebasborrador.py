@@ -97,7 +97,8 @@ def pantalla():
 
 def check_button_command(entrycargaesfera):
     
-    if (esfera.get() == 1 and plano.get() == 0):
+    if (eleccion.get() == 1):
+        figure.esfera(esferas, planos)
         datos.config(text="Se selecciono la esfera")
         dato1.config(text="Escribir el radio (m)")
         dato1.grid(row=5,column=0)
@@ -109,17 +110,18 @@ def check_button_command(entrycargaesfera):
         
 
 
-    if (plano.get() == 2 and esfera.get() == 0):
+    if (eleccion.get() == 2):
         
         dato2.grid_remove()
         entrycargaesfera.grid_remove()
         entryradio.grid_remove()
+        figure.plano( planos, esferas)
         datos.config(text="Se selecciono el plano infinito")
         dato1.config(text="Escribir la densidad superficial de carga (C/m^2)")
         dato1.grid(row=5,column=0)
         entrydens.grid(row=6,column=0)
     
-    if ((plano.get() == 0 and esfera.get() == 0) or (plano.get() == 2 and esfera.get() == 1 )):
+    if (eleccion.get() == 0 ):
         datos.config(text="Esperando la selección de la carga central....")
         dato1.grid_remove()
         dato2.grid_remove()
@@ -131,7 +133,7 @@ def check_button_command(entrycargaesfera):
 
 def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, esfera, plano):
     #plano
-    if(plano == 2):
+    if(eleccion == 2):
         rapi.config(text="Ingrese la rapidez inicial")
 
         if((int(rapidez) > 300000000)):
@@ -144,7 +146,6 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
         cplano.rapidez = int(rapidez)
 
         distanciap = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula])
-        figure.plano(densidad, planos)
         part = turtle.RawTurtle(screen, shape="circle")
         figure.fparticula(int(distanciap), part, color="blue")
 
@@ -152,7 +153,7 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
 
 
     #esfera
-    if(esfera == 1):
+    if(eleccion == 1):
         cesfera.cargaparticula = carga
         cesfera.cargaparticula =  cargaesfera
         cesfera.radio = radio
@@ -197,9 +198,8 @@ if __name__ == "__main__":
    
     
     root = tk.Tk()
-    plano = tk.IntVar()
-    esfera = tk.IntVar()
-    names = ["Protones", "Positrones", "Berilio-8", "Helio-4", "Alfa triplemente cargada", "Núcleo de carbono", "Núcleo de oxígeno"]
+    eleccion = tk.IntVar()
+    names = ["Protones", "Positrones", "Berilio-8", "Helio-4", "Alfa triplemente cargada", "Núcleo de carbono", "Núcleo de oxígeno","Custom"]
 
     particula = tk.StringVar()
     particula.set(names[0])
@@ -216,11 +216,14 @@ if __name__ == "__main__":
     canvas.grid(row=1,column=1,rowspan=40, columnspan=2 )
     screen = turtle.TurtleScreen(canvas)
     planos = turtle.RawTurtle(screen, shape="arrow")
+    planos.hideturtle()
+    esferas = turtle.RawTurtle(screen, shape="arrow")
+    esferas.hideturtle()
     pantalla()
     tk.Label(root, text="Calculo de velocidad de una párticula", font=("Arial", 16)).grid(row=0,column=1, columnspan=2)
     tk.Label(root, text="Seleccione el tipo de carga central fija", font=("Arial", 12)).grid(row=1,column=0)
-    c1 = tk.Checkbutton(root, text='Esfera',variable=esfera, onvalue=1, offvalue=0, font=("Arial", 10), command= lambda: check_button_command(entrycargaesfera) ).grid(row=2,column=0)
-    c2 = tk.Checkbutton(root, text='Plano',variable=plano, onvalue=2, command= lambda: check_button_command(entrycargaesfera),offvalue=0, font=("Arial", 10) ).grid(row=3, column=0)
+    c1 = tk.Radiobutton(root, text='Esfera',variable=eleccion, value=1, font=("Arial", 10), command= lambda: check_button_command(entrycargaesfera) ).grid(row=2,column=0)
+    c2 = tk.Radiobutton(root, text='Plano',variable=eleccion, value=2, command= lambda: check_button_command(entrycargaesfera), font=("Arial", 10) ).grid(row=3, column=0)
     
     
 

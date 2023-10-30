@@ -3,8 +3,9 @@ import tkinter as tk
 import math
 
 ##plano
-def plano(densidad, plano):
-    
+def plano(plano, esfera):
+    plano.clear()
+    esfera.clear()
     plano.width(3)
     plano.fillcolor("#ff6600")
     
@@ -25,7 +26,7 @@ def plano(densidad, plano):
     plano.penup()
     plano.goto(0,0)
     plano.goto(0,25)
-    plano.write("Densidad lineal:" + str(densidad) +"C/m")
+    #plano.write("Densidad lineal:" + str(densidad) +"C/m")
     plano.goto(0,0)
     plano.pendown()
     plano.width(1)
@@ -77,65 +78,21 @@ def progress(totald, tortuga):
 
 ##Esfera
 
-def esfera(radio, part):
-    part.width(3)
-    part.right(90)
-    part.penup()
-    part.forward(radio)
-    part.left(90)
-    part.pendown()
-    part.circle(radio)
-    part.circle(radio, -70)
-    part.right(-45)
-    part.penup()
-    part.forward(radio/8)
-    part.right(45)
-    part.forward(radio/15)
-    part.left(10)
-    part.seth(-43)
-    part.pendown()
-    
-    
+def esfera(part, plano):
+    part.clear()
+    plano.clear()
+    val = 10
 
+    for i in range(36):
+        part.seth(-val)
+        circle(part)
+        val += 10
 
-# rad --> radius of arc
+def circle(part):
     for i in range(2):
-        
-        # two arcs
-        part.circle(radio*1.17,90)
-        part.circle(radio*1.17//2,90)
-            # Main section
-    # tilt the shape to negative 45
-
-    part.penup()
-    part.goto(0,0)
-    part.right(90)
-    part.forward(radio)
-    part.left(90)
-    part.circle(radio)
-    part.circle(radio, 70)
-    part.right(-45)
-    part.penup()
-    part.forward(radio/9)
-    part.right(45)
-    part.forward(-radio/8)
-    part.left(10)
-    part.seth(43)
-    part.pendown()
-    
-    
-
-
-# rad --> radius of arc
-    for i in range(2):
-        
-        # two arcs
-        part.circle(radio*1.17,90)
-        part.circle(radio*1.17//2,90)
- 
-
- 
-
-    
-
-
+        part.speed(0)
+        #part.penup()
+        part.circle(100,90)
+        #part.pendown()
+        part.circle(100//2,90)
+        #part.penup()
