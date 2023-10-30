@@ -114,7 +114,7 @@ def check_button_command(entrycargaesfera):
         entrycargaesfera.grid_remove()
         entryradio.grid_remove()
         datos.config(text="Se selecciono el plano infinito")
-        dato1.config(text="Escribir la densidad superficial de carga (C/m)")
+        dato1.config(text="Escribir la densidad superficial de carga (C/m^2)")
         dato1.grid(row=5,column=0)
         entrydens.grid(row=6,column=0)
     
