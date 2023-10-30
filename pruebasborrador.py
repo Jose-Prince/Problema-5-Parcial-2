@@ -74,6 +74,7 @@ def dot(size,t):
     t.color("red")
     t.dot(size)
 
+#plano
 
 def pantalla():
     # Set up the screen

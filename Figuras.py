@@ -2,7 +2,7 @@ import turtle
 import tkinter as tk
 import math
 
-
+##plano
 def plano(densidad, plano):
     
     plano.width(3)

@@ -2,6 +2,8 @@ import turtle
 from turtle import RawTurtle, ScrolledCanvas
 import tkinter as tk
 
+#plano
+
 def draw_grid(step, size,turtle):
     for i in range(-size, (size+1), step):
         turtle.penup()

@@ -1,5 +1,6 @@
 import math
 
+#plano
 #Velocida de escape
 def escapeV(mass):
     return ((2*(8.85*10**-12))/(mass*(8.99*10**9)))**1/2
