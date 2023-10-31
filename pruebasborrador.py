@@ -144,8 +144,11 @@ def check_button_command(entrycargaesfera):
 
         
 
-def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, eleccion):
-    tortu = RawTurtle(screen)
+def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, eleccion, tortu):
+    
+    #negativa densidad 
+    #carga positiva
+                
     tortu.hideturtle()
     tortu.clear()
     tortu = RawTurtle(screen)
@@ -153,48 +156,62 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
     tortu.color(dicColors[particula])
     #plane
     if eleccion == 2:
-        if int(rapidez) > 300000000:
-            velo.config(text=f"Rapidez inicial: ERROR: velocidad de la luz superada")
-            dist.config(text=f"Distancia recorrida: INFINITA")
+        if(float(densidad) < 0):
+            if float(rapidez) > 300000000:
+                velo.config(text=f"Rapidez inicial: ERROR: velocidad de la luz superada")
+                dist.config(text=f"Distancia recorrida: INFINITA")
 
-        else :
-            if particula == "Personalizado":
-                distance = func.distancePP(rapidez, densidad, masa, carga)
-                velo.config(text=f"Rapidez inicial: {rapidez} m/s")
-                dist.config(text=f"Distancia recorrida: {distance} m")
-                decimals = func.decimals(distance)
-                tortu.heading()
-                tortu.forward(distance*10**(decimals))      
-            else:
-                distance = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula], particula)
-                velo.config(text=f"Rapidez inicial: {rapidez} m/s")
-                dist.config(text=f"Distancia recorrida: {distance} m")
-                decimals = func.decimals(distance)
-                tortu.heading()
-                tortu.forward(distance*10**(decimals))
-    
-    #sphere
+            else :
+                if particula == "Personalizado":
+                    distance = func.distancePP(rapidez, densidad, masa, carga)
+                    velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+                    dist.config(text=f"Distancia recorrida: {distance} m")
+                    decimals = func.decimals(distance)
+                    tortu.heading()
+                    tortu.forward(distance*10**(decimals))      
+                else:
+                    distance = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula], particula)
+                    velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+                    dist.config(text=f"Distancia recorrida: {distance} m")
+                    decimals = func.decimals(distance)
+                    tortu.heading()
+                    tortu.forward(distance*10**(decimals))
+                #sphere
+        else:
+            if(float(densidad) > 0):
+                errur.config(text="Densidad lineal debe ser negativa")
     elif eleccion == 1:
         vars = 1
 
+            
+        
+
+        
+        
+            
+
+
+def eliminarrecorrido(tortuga):
+    tortuga.clear()
+    
 
 
     # #plano
     # if(eleccion == 2):
     #     speedLabel.config(text="Ingrese la rapidez inicial")
 
-    #     if((int(rapidez) > 300000000)):
+    #     if((float(rapidez) > 300000000)):
     #         rapidez = 300000000
     #         speedLabel.config(text="Ilegalidad: cantidad mayor a la velocidad de la luz\n Se ha puesto por default 3*10^8 m/s")
 
-    #     cplano.cargaparticula = int(carga)
-    #     cplano.densidad = int(densidad)
-    #     cplano.masa = int(masa)
-    #     cplano.rapidez = int(rapidez)
+    #     cplano.cargaparticula = float(carga)
+    #     cplano.densidad = float(densidad)
+    #     cplano.masa = float(masa)
+    #     cplano.rapidez = float(rapidez)
 
     #     distanciap = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula])
     #     part = turtle.RawTurtle(screen, shape="circle")
-    #     figure.fparticula(int(distanciap), part, color="blue")
+    #     figure.fparticula(float(distanciap), part, color="blue")
 
     
     # # esfera
@@ -204,7 +221,7 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
     #     cesfera.radio = radio
     #     cplano.masa = masa
     #     cplano.rapidez = rapidez
-    #     func.distanceS(int(radio), dicprotones[particula], dicneutrones[particula], int(rapidez))
+    #     func.distanceS(float(radio), dicprotones[particula], dicneutrones[particula], float(rapidez))
 
     
 
@@ -217,6 +234,7 @@ if __name__ == "__main__":
     global cplano
     cplano = plano(densidad= 1, cargaparticula=1,masa=1, rapidez= 1)
     fig = 0
+    
     
     
     dicprotones = {
@@ -265,12 +283,14 @@ if __name__ == "__main__":
     entryradio = tk.Entry(root)
     entrycargaesfera = tk.Entry(root)
     entrydens = tk.Entry(root)
+    
 
     
     canvas = tk.Canvas(root)
     canvas.config(width=800, height=600)
     canvas.grid(row=1,column=1,rowspan=40, columnspan=2 )
     screen = turtle.TurtleScreen(canvas)
+    tortu = RawTurtle(screen) #Tortuga de desplazamiento
     planos = turtle.RawTurtle(screen, shape="arrow")
     planos.hideturtle()
     esferas = turtle.RawTurtle(screen, shape="arrow")
@@ -304,17 +324,31 @@ if __name__ == "__main__":
     masa = tk.Entry(root)
     speedLabel = tk.Label(root, text="Ingrese la rapidez inicial", font=("Arial", 12))
     speedLabel.grid(row=27,column=0)
+
+    errur = tk.Label(root, text="", font=("Arial", 12))
+    errur.grid(row=12, column=0)
+
     rapidez = tk.Entry(root)
     rapidez.grid(row=28, column=0)
     
     tortu = RawTurtle(screen)
-    submit = tk.Button(root, text="Generar Resultados...", command= lambda: meterdatos(fig, entrycargapart.get(),masa.get(), rapidez.get(),entryradio.get(),entrycargaesfera.get(),entrydens.get(), particula.get(), eleccion.get()))
-    submit.grid(row=29,column=0)
+    submit = tk.Button(root, text="Generar Resultados...", command= lambda: meterdatos(fig, entrycargapart.get(),masa.get(), rapidez.get(),entryradio.get(),entrycargaesfera.get(),entrydens.get(), particula.get(), eleccion.get(), tortu))
+    submit.grid(row=30,column=0)
 
     velo = tk.Label(root, text="Rapidez inicial: " + str(0) + "m/s", font=("Arial", 12))
     velo.grid(row=41,column=1)
 
     dist = tk.Label(root, text="Distancia de máximo alejamiento: " + str(0) + "metros", font=("Arial", 12))
     dist.grid(row=41,column=2)
+
+    parte = tk.Label(root, text="Particula: " + str(particula.get()) , font=("Arial", 12))
+    parte.grid(row=42,column=1)
+
+    borrar = tk.Button(root, text="Borrar particula", font=("Arial", 12),  command= lambda: eliminarrecorrido(tortu))
+    borrar.grid(row=42,column=2)
+
+
+    
+    
 
     root.mainloop()

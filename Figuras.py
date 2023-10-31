@@ -40,9 +40,9 @@ def fparticula(totald, part, color):
     part.color(str(color))
     part.shapesize(stretch_wid=0.25, stretch_len=0.25, outline=0.5)
 
-    progress(int(totald), part)
+    progress(float(totald), part)
     part.right(180)
-    progress(int(totald), part)
+    progress(float(totald), part)
 
 
 def fparticulaesf(totald, part, color, radio):
@@ -51,12 +51,12 @@ def fparticulaesf(totald, part, color, radio):
     part.shapesize(stretch_wid=0.25, stretch_len=0.25, outline=0.5)
 
     if(totald > radio):
-        progress(int(totald), part)
+        progress(float(totald), part)
     
     else:
-        progress(int(totald), part)
+        progress(float(totald), part)
         part.right(180)
-        progress(int(totald), part)
+        progress(float(totald), part)
 
 
 def progress(totald, tortuga):
