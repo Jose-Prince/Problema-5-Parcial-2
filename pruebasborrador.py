@@ -146,22 +146,32 @@ def check_button_command(entrycargaesfera):
 
 def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, eleccion):
     tortu = RawTurtle(screen)
+    tortu.hideturtle()
     tortu.clear()
+    tortu = RawTurtle(screen)
     tortu.hideturtle()
     tortu.color(dicColors[particula])
     #plane
     if eleccion == 2:
-        if rapidez > 300000000:
+        if int(rapidez) > 300000000:
             velo.config(text=f"Rapidez inicial: ERROR: velocidad de la luz superada")
             dist.config(text=f"Distancia recorrida: INFINITA")
 
         else :
-            distance = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula], particula)
-            velo.config(text=f"Rapidez inicial: {rapidez} m/s")
-            dist.config(text=f"Distancia recorrida: {distance} m")
-            decimals = func.decimals(distance)
-            tortu.heading()
-            tortu.forward(distance*10**(decimals))
+            if particula == "Personalizado":
+                distance = func.distancePP(rapidez, densidad, masa, carga)
+                velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+                dist.config(text=f"Distancia recorrida: {distance} m")
+                decimals = func.decimals(distance)
+                tortu.heading()
+                tortu.forward(distance*10**(decimals))      
+            else:
+                distance = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula], particula)
+                velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+                dist.config(text=f"Distancia recorrida: {distance} m")
+                decimals = func.decimals(distance)
+                tortu.heading()
+                tortu.forward(distance*10**(decimals))
     
     #sphere
     elif eleccion == 1:
