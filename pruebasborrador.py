@@ -152,7 +152,6 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
         masa = 0
     tortu.hideturtle()
     tortu.clear()
-    tortu = RawTurtle(screen)
     tortu.hideturtle()
     tortu.color(dicColors[particula])
     #plane
@@ -174,7 +173,7 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
                     tortu.heading()
                     tortu.forward(distance*10**(decimals))      
                 else:
-                    distance = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula], particula)
+                    distance = func.distanceP(rapidez, densidad, dicprotones[nombrepart], dicneutrones[nombrepart], nombrepart)
                     velo.config(text=f"Rapidez inicial: {rapidez} m/s")
                     dist.config(text=f"Distancia recorrida: {distance} m")
                     decimals = func.decimals(distance)
@@ -197,8 +196,8 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
                 dist.config(text=f"Distancia recorrida: INFINITA")
 
             else :
-                veloEscape.config(text=f"Velocidad de escape: {func.escapeV(float(masa),float(cargaesfera),float(radio),particula, dicprotones[particula],dicneutrones[particula])} m/s")
-                if particula == "Personalizado":
+                veloEscape.config(text=f"Velocidad de escape: {func.escapeV(float(masa),float(cargaesfera),float(radio),nombrepart, dicprotones[nombrepart],dicneutrones[nombrepart])} m/s")
+                if nombrepart == "Personalizado":
                     distance = func.distanceSP(radio, masa, rapidez, carga, cargaesfera)
                     velo.config(text=f"Rapidez inicial: {rapidez} m/s")
                     if (float(rapidez) > func.escapeV(float(masa),1.6**10-19,float(cargaesfera),float(radio),particula)):
@@ -313,8 +312,8 @@ if __name__ == "__main__":
 
 
     tk.Label(root, text="Seleccione la partícula que quiera disparar", font=("Arial", 12)).grid(row=10,column=0)
-    tk.OptionMenu(root, particula ,*names, command = lambda _: seleccionar_elementos(particula.get())).grid(row=11, column=0)
-    #nombrepart = particula.get()
+    nombrepart = tk.OptionMenu(root, particula ,*names, command = lambda _: seleccionar_elementos(particula.get())).grid(row=11, column=0)
+    nombrepart = particula.get()
     tk.Label(root, text="Datos Importantes", font=("Arial", 12)).grid(row=22,column=0)
     charge = tk.Label(root, text="Ingrese la carga", font=("Arial", 12))
     entrycargapart = tk.Entry(root)
@@ -341,7 +340,7 @@ if __name__ == "__main__":
     dist = tk.Label(root, text="Distancia de máximo alejamiento: " + str(0) + "metros", font=("Arial", 12))
     dist.grid(row=41,column=2)
 
-    parte = tk.Label(root, text="Particula: " + str(particula.get()) , font=("Arial", 12))
+    parte = tk.Label(root, text="Particula: " + str(nombrepart) , font=("Arial", 12))
     parte.grid(row=42,column=1)
 
     borrar = tk.Button(root, text="Borrar particula", font=("Arial", 12),  command= lambda: eliminarrecorrido(tortu))
