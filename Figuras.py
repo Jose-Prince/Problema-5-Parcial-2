@@ -91,8 +91,5 @@ def esfera(part, plano):
 def circle(part):
     for i in range(2):
         part.speed(0)
-        #part.penup()
         part.circle(100,90)
-        #part.pendown()
         part.circle(100//2,90)
-        #part.penup()
