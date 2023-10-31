@@ -4,8 +4,8 @@ import math
 
 ##plano
 def plano(plano, esfera):
-    plano.clear()
-    esfera.clear()
+    plano.reset()
+    esfera.reset()
     plano.width(3)
     plano.fillcolor("#ff6600")
     
@@ -79,8 +79,8 @@ def progress(totald, tortuga):
 ##Esfera
 
 def esfera(part, plano):
-    part.clear()
-    plano.clear()
+    part.reset()
+    plano.reset()
     val = 10
 
     for i in range(36):

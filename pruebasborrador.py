@@ -20,6 +20,9 @@ class plano:
         self.cargaparticula = cargaparticula
         self.rapidez = rapidez
 
+def eliminarrecorrido(tortu):
+    tortu.clear()
+
 def draw_grid(step, size,turtle):
     for i in range(-size, (size+1), step):
         turtle.penup()
@@ -144,11 +147,8 @@ def check_button_command(entrycargaesfera):
 
         
 
-def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, eleccion, tortu):
-    
-    #negativa densidad 
-    #carga positiva
-                
+def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, eleccion):
+    tortu = RawTurtle(screen)
     tortu.hideturtle()
     tortu.clear()
     tortu = RawTurtle(screen)
@@ -156,62 +156,59 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
     tortu.color(dicColors[particula])
     #plane
     if eleccion == 2:
+        veloEscape.grid_remove()
         if int(rapidez) > 300000000:
-            velo.config(text=f"Rapidez inicial: ERROR: velocidad de la luz superada")
+            velo.config(text=f"Rapidez inicial -> ERROR: Velocidad de la luz superada")
             dist.config(text=f"Distancia recorrida: INFINITA")
 
-            else :
-                if particula == "Personalizado":
-                    distance = func.distancePP(rapidez, densidad, masa, carga)
-                    velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+        else :
+            if particula == "Personalizado":
+                distance = func.distancePP(rapidez, densidad, masa, carga)
+                velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+                dist.config(text=f"Distancia recorrida: {distance} m")
+                decimals = func.decimals(distance)
+                tortu.heading()
+                tortu.forward(distance*10**(decimals))      
+            else:
+                distance = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula], particula)
+                velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+                dist.config(text=f"Distancia recorrida: {distance} m")
+                decimals = func.decimals(distance)
+                tortu.heading()
+                tortu.forward(distance*10**(decimals))
+    
+    #sphere
+    elif eleccion == 1:
+        veloEscape.grid(row=42,column=1)
+        tortu.penup()
+        tortu.goto(160,0)
+        tortu.pendown()
+        if int(rapidez) > 300000000:
+            velo.config(text=f"Rapidez inicial: ERROR -> Velocidad de la luz superada")
+            dist.config(text=f"Distancia recorrida: INFINITA")
+
+        else :
+            veloEscape.config(text=f"Velocidad de escape: {func.escapeV(masa,particula)} m/s")
+            if particula == "Personalizado":
+                distance = func.distanceSP(radio, masa, rapidez, carga, cargaesfera)
+                velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+                if (int(rapidez) > func.escapeV(masa,particula)):
+                    dist.config(text=f"Distancia recorrida: INFINITA")
+                else:
                     dist.config(text=f"Distancia recorrida: {distance} m")
-                    decimals = func.decimals(distance)
+                    decimals = func.decimals(distance-1)
                     tortu.heading()
                     tortu.forward(distance*10**(decimals))      
+            else:
+                distance = func.distanceS(radio, dicprotones[particula], dicneutrones[particula], rapidez, particula, cargaesfera)
+                velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+                if (int(rapidez) > func.escapeV(masa,particula)):
+                    dist.config(text=f"Distancia recorrida: INFINITA")
                 else:
-                    distance = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula], particula)
-                    velo.config(text=f"Rapidez inicial: {rapidez} m/s")
                     dist.config(text=f"Distancia recorrida: {distance} m")
-                    decimals = func.decimals(distance)
-                    tortu.heading()
-                    tortu.forward(distance*10**(decimals))
-                #sphere
-        else:
-            if(float(densidad) > 0):
-                errur.config(text="Densidad lineal debe ser negativa")
-    elif eleccion == 1:
-        vars = 1
-
-
-
-    # #plano
-    # if(eleccion == 2):
-    #     speedLabel.config(text="Ingrese la rapidez inicial")
-
-    #     if((int(rapidez) > 300000000)):
-    #         rapidez = 300000000
-    #         speedLabel.config(text="Ilegalidad: cantidad mayor a la velocidad de la luz\n Se ha puesto por default 3*10^8 m/s")
-
-    #     cplano.cargaparticula = int(carga)
-    #     cplano.densidad = int(densidad)
-    #     cplano.masa = int(masa)
-    #     cplano.rapidez = int(rapidez)
-
-    #     distanciap = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula])
-    #     part = turtle.RawTurtle(screen, shape="circle")
-    #     figure.fparticula(int(distanciap), part, color="blue")
-
-    
-    # # esfera
-    # if(eleccion == 1):
-    #     cesfera.cargaparticula = carga
-    #     cesfera.cargaparticula =  cargaesfera
-    #     cesfera.radio = radio
-    #     cplano.masa = masa
-    #     cplano.rapidez = rapidez
-    #     func.distanceS(int(radio), dicprotones[particula], dicneutrones[particula], int(rapidez))
-
-    
+                decimals = func.decimals(distance)
+                tortu.heading()
+                tortu.forward(distance*10**(decimals-1))
 
 
 
@@ -336,8 +333,5 @@ if __name__ == "__main__":
     borrar = tk.Button(root, text="Borrar particula", font=("Arial", 12),  command= lambda: eliminarrecorrido(tortu))
     borrar.grid(row=42,column=2)
 
-
-    
-    
 
     root.mainloop()

@@ -2,8 +2,13 @@ import math
 
 #plano
 #Velocida de escape
-def escapeV(mass):
-    return ((2*(8.85*10**-12))/(float(mass)*(8.99*10**9)))**1/2
+def escapeV(mass, particula):
+    if particula == "Personalizado":
+        return ((2*(8.85*10**-12))/(float(mass)*(8.99*10**9)))**1/2
+    elif particula == "Positron":
+        return ((2*(8.85*10**-12))/(9.11*10**-31*(8.99*10**9)))**1/2
+    else:
+        return ((2*(8.85*10**-12))/(1.67*10**-27*(8.99*10**9)))**1/2
 
 #Distancia plano infinito
 def distanceP(velocity, density, protons, neutrons, particula):
