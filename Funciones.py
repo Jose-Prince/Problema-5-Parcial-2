@@ -19,6 +19,13 @@ def distanceS(radio, protons, neutrons, velocity, particula):
     else :
         return abs((2*math.pi*(8.85*10**-12)*float(radio)**2*(int(protons)+int(neutrons))*(1.67*10**-27)*int(velocity)**2)/(int(protons)*(1.6*10**-19)))
     
+#Distancia plano infinito particula personalizada
+def distancePP(velocity, density, masa, carga):
+    return abs((float(masa)*int(velocity)**2*(8.85*10**-12))/(float(carga)*float(density)))
+
+#Distancia esfera particula personalizada
+def distanceSP(radio, masa, velocity, carga):
+    return abs((2*math.pi*(8.85*10**-12)*float(radio)**2*float(masa)*int(velocity)**2)/float(carga))
 
 #Detrminación de decimales
 def decimals(numero):
