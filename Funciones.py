@@ -4,11 +4,11 @@ import math
 #Velocida de escape
 def escapeV(mass, carga, cargaEsfera, radio, particula):
     if particula == "Personalizado":
-        return (abs((2*(8.99*10**9)*float(carga)*float(cargaEsfera))/(float(mass)*float(radio))))**1/2
+        return (abs((2*(8.99*10**9)*float(1.6**10-19)*float(cargaEsfera))/(float(mass)*float(radio))))**1/2
     elif particula == "Positron":
-        return (abs((2*(8.99*10**9)*float(carga)*float(cargaEsfera))/((9.11*10**-31)*float(radio))))**1/2
+        return (abs((2*(8.99*10**9)*float(1.6**10-19)*float(cargaEsfera))/((9.11*10**-31)*float(radio))))**1/2
     else:
-        return (abs((2*(8.99*10**9)*float(carga)*float(cargaEsfera))/((1.67*10**-27)*float(radio))))**1/2
+        return (abs((2*(8.99*10**9)*float(1.6**10-19)*float(cargaEsfera))/((1.67*10**-27)*float(radio))))**1/2
 
 #Distancia plano infinito
 def distanceP(velocity, density, protons, neutrons, particula):
@@ -26,11 +26,11 @@ def distanceS(radio, protons, neutrons, velocity, particula, cargaEsfera):
     
 #Distancia plano infinito particula personalizada
 def distancePP(velocity, density, masa, carga):
-    return abs((float(masa)*float(velocity)**2*(8.85*10**-12))/(float(carga)*float(density)))
+    return abs((float(masa)*float(velocity)**2*(8.85*10**-12))/(float(1.6**10-19)*float(density)))
 
 #Distancia esfera particula personalizada
 def distanceSP(radio, masa, velocity, carga, cargaEsfera):
-    return abs((2*math.pi*(8.85*10**-12)*float(radio)**2*float(masa)*float(velocity)**2)/float(carga)*float(cargaEsfera))
+    return abs((2*math.pi*(8.85*10**-12)*float(radio)**2*float(1.6**10-19)*float(velocity)**2)/1.6**10-19*float(cargaEsfera))
 
 #Detrminación de decimales
 def decimals(numero):

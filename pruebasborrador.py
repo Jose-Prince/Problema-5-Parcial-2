@@ -3,6 +3,7 @@ from turtle import RawTurtle, ScrolledCanvas
 import tkinter as tk
 import Figuras as figure
 import Funciones as func
+import numpy as np
 
 class esfera:
     def __init__(self, radio, carga, cargaparticula, masa, rapidez):
@@ -157,6 +158,7 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
     tortu.color(dicColors[particula])
     #plane
     if eleccion == 2:
+        errur.config(text="" bg="white")
         veloEscape.grid_remove()
         if(float(densidad) < 0):
 
@@ -184,6 +186,7 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
     
     #sphere
     elif eleccion == 1:
+        errur.config(text="" bg="white")
         veloEscape.grid(row=44,column=1)
         tortu.penup()
         tortu.goto(160,0)
@@ -195,11 +198,11 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
                 dist.config(text=f"Distancia recorrida: INFINITA")
 
             else :
-                veloEscape.config(text=f"Velocidad de escape: {func.escapeV(float(masa),float(carga),float(cargaesfera),float(radio),particula)} m/s")
+                veloEscape.config(text=f"Velocidad de escape: {func.escapeV(float(masa),1.6**10-19,float(cargaesfera),float(radio),particula)} m/s")
                 if particula == "Personalizado":
                     distance = func.distanceSP(radio, masa, rapidez, carga, cargaesfera)
                     velo.config(text=f"Rapidez inicial: {rapidez} m/s")
-                    if (float(rapidez) > func.escapeV(float(masa),float(carga),float(cargaesfera),float(radio),particula)):
+                    if (float(rapidez) > func.escapeV(float(masa),1.6**10-19,float(cargaesfera),float(radio),particula)):
                         dist.config(text=f"Distancia recorrida: INFINITA")
                     else:
                         dist.config(text=f"Distancia recorrida: {distance} m")
@@ -209,7 +212,7 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
                 else:
                     distance = func.distanceS(radio, dicprotones[particula], dicneutrones[particula], rapidez, particula, cargaesfera)
                     velo.config(text=f"Rapidez inicial: {rapidez} m/s")
-                    if (float(rapidez) > func.escapeV(float(masa),float(carga),float(cargaesfera),float(radio),particula)):
+                    if (float(rapidez) > func.escapeV(float(masa),1.6**10-19,float(cargaesfera),float(radio),particula)):
                         dist.config(text=f"Distancia recorrida: INFINITA")
                     else:
                         dist.config(text=f"Distancia recorrida: {distance} m")
