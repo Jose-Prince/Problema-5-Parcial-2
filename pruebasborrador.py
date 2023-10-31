@@ -156,10 +156,9 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
     tortu.color(dicColors[particula])
     #plane
     if eleccion == 2:
-        if(float(densidad) < 0):
-            if float(rapidez) > 300000000:
-                velo.config(text=f"Rapidez inicial: ERROR: velocidad de la luz superada")
-                dist.config(text=f"Distancia recorrida: INFINITA")
+        if int(rapidez) > 300000000:
+            velo.config(text=f"Rapidez inicial: ERROR: velocidad de la luz superada")
+            dist.config(text=f"Distancia recorrida: INFINITA")
 
             else :
                 if particula == "Personalizado":
@@ -183,35 +182,24 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
     elif eleccion == 1:
         vars = 1
 
-            
-        
-
-        
-        
-            
-
-
-def eliminarrecorrido(tortuga):
-    tortuga.clear()
-    
 
 
     # #plano
     # if(eleccion == 2):
     #     speedLabel.config(text="Ingrese la rapidez inicial")
 
-    #     if((float(rapidez) > 300000000)):
+    #     if((int(rapidez) > 300000000)):
     #         rapidez = 300000000
     #         speedLabel.config(text="Ilegalidad: cantidad mayor a la velocidad de la luz\n Se ha puesto por default 3*10^8 m/s")
 
-    #     cplano.cargaparticula = float(carga)
-    #     cplano.densidad = float(densidad)
-    #     cplano.masa = float(masa)
-    #     cplano.rapidez = float(rapidez)
+    #     cplano.cargaparticula = int(carga)
+    #     cplano.densidad = int(densidad)
+    #     cplano.masa = int(masa)
+    #     cplano.rapidez = int(rapidez)
 
     #     distanciap = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula])
     #     part = turtle.RawTurtle(screen, shape="circle")
-    #     figure.fparticula(float(distanciap), part, color="blue")
+    #     figure.fparticula(int(distanciap), part, color="blue")
 
     
     # # esfera
@@ -221,7 +209,7 @@ def eliminarrecorrido(tortuga):
     #     cesfera.radio = radio
     #     cplano.masa = masa
     #     cplano.rapidez = rapidez
-    #     func.distanceS(float(radio), dicprotones[particula], dicneutrones[particula], float(rapidez))
+    #     func.distanceS(int(radio), dicprotones[particula], dicneutrones[particula], int(rapidez))
 
     
 
@@ -337,6 +325,7 @@ if __name__ == "__main__":
 
     velo = tk.Label(root, text="Rapidez inicial: " + str(0) + "m/s", font=("Arial", 12))
     velo.grid(row=41,column=1)
+    veloEscape = tk.Label(root, text="Velocidad de escape: " +str(0) + "m/s", font=("Arial",12))
 
     dist = tk.Label(root, text="Distancia de máximo alejamiento: " + str(0) + "metros", font=("Arial", 12))
     dist.grid(row=41,column=2)
