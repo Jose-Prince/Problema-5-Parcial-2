@@ -182,7 +182,7 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
     
     #sphere
     elif eleccion == 1:
-        veloEscape.grid(row=43,column=1)
+        veloEscape.grid(row=44,column=1)
         tortu.penup()
         tortu.goto(160,0)
         tortu.pendown()
