@@ -2,13 +2,10 @@ import math
 
 #plano
 #Velocida de escape
-def escapeV(mass, carga, cargaEsfera, radio, particula):
-    if particula == "Personalizado":
-        return (abs((2*(8.99*10**9)*float(1.6**10-19)*float(cargaEsfera))/(float(mass)*float(radio))))**1/2
-    elif particula == "Positron":
-        return (abs((2*(8.99*10**9)*float(1.6**10-19)*float(cargaEsfera))/((9.11*10**-31)*float(radio))))**1/2
-    else:
-        return (abs((2*(8.99*10**9)*float(1.6**10-19)*float(cargaEsfera))/((1.67*10**-27)*float(radio))))**1/2
+def escapeV(mass, cargaEsfera, radio, particula, protones, neutrones):
+    energia = abs((float(cargaEsfera)*(float(protones)*float(1.6*10**-19)))/(4*3.14*8.85*10**-12*float(radio)))**1/2
+    mass = float(protones*1.67*10**-27) + float(neutrones*1.67*10**-27)
+    return ((2*float(energia)/float(mass))**1/2)
 
 #Distancia plano infinito
 def distanceP(velocity, density, protons, neutrons, particula):
