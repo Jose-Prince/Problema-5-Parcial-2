@@ -153,6 +153,7 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
     tortu.color(dicColors[particula])
     #plane
     if eleccion == 2:
+        veloEscape.grid_remove()
         if int(rapidez) > 300000000:
             velo.config(text=f"Rapidez inicial: ERROR: velocidad de la luz superada")
             dist.config(text=f"Distancia recorrida: INFINITA")
@@ -175,39 +176,29 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
     
     #sphere
     elif eleccion == 1:
-        vars = 1
+        veloEscape.grid(row=41,column=1)
+        tortu.penup()
+        tortu.goto(100,0)
+        tortu.pendown()
+        if int(rapidez) > 300000000:
+            velo.config(text=f"Rapidez inicial: ERROR: velocidad de la luz superada")
+            dist.config(text=f"Distancia recorrida: INFINITA")
 
-
-
-    # #plano
-    # if(eleccion == 2):
-    #     speedLabel.config(text="Ingrese la rapidez inicial")
-
-    #     if((int(rapidez) > 300000000)):
-    #         rapidez = 300000000
-    #         speedLabel.config(text="Ilegalidad: cantidad mayor a la velocidad de la luz\n Se ha puesto por default 3*10^8 m/s")
-
-    #     cplano.cargaparticula = int(carga)
-    #     cplano.densidad = int(densidad)
-    #     cplano.masa = int(masa)
-    #     cplano.rapidez = int(rapidez)
-
-    #     distanciap = func.distanceP(rapidez, densidad, dicprotones[particula], dicneutrones[particula])
-    #     part = turtle.RawTurtle(screen, shape="circle")
-    #     figure.fparticula(int(distanciap), part, color="blue")
-
-    
-    # # esfera
-    # if(eleccion == 1):
-    #     cesfera.cargaparticula = carga
-    #     cesfera.cargaparticula =  cargaesfera
-    #     cesfera.radio = radio
-    #     cplano.masa = masa
-    #     cplano.rapidez = rapidez
-    #     func.distanceS(int(radio), dicprotones[particula], dicneutrones[particula], int(rapidez))
-
-    
-
+        else :
+            if particula == "Personalizado":
+                distance = func.distanceSP(radio, masa, rapidez, carga, cargaesfera)
+                velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+                dist.config(text=f"Distancia recorrida: {distance} m")
+                decimals = func.decimals(distance)
+                tortu.heading()
+                tortu.forward(distance*10**(decimals))      
+            else:
+                distance = func.distanceS(radio, dicprotones[particula], dicneutrones[particula], rapidez, particula, cargaesfera)
+                velo.config(text=f"Rapidez inicial: {rapidez} m/s")
+                dist.config(text=f"Distancia recorrida: {distance} m")
+                decimals = func.decimals(distance)
+                tortu.heading()
+                tortu.forward(distance*10**(decimals))
 
 
 if __name__ == "__main__":
@@ -313,6 +304,7 @@ if __name__ == "__main__":
 
     velo = tk.Label(root, text="Rapidez inicial: " + str(0) + "m/s", font=("Arial", 12))
     velo.grid(row=41,column=1)
+    veloEscape = tk.Label(root, text="Velocidad de escape: " +str(0) + "m/s", font=("Arial",12))
 
     dist = tk.Label(root, text="Distancia de máximo alejamiento: " + str(0) + "metros", font=("Arial", 12))
     dist.grid(row=41,column=2)
