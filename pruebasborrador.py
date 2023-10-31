@@ -148,6 +148,8 @@ def check_button_command(entrycargaesfera):
         
 
 def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, eleccion, tortu):
+    if masa == '':
+        masa = 0
     tortu.hideturtle()
     tortu.clear()
     tortu = RawTurtle(screen)
@@ -193,11 +195,11 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
                 dist.config(text=f"Distancia recorrida: INFINITA")
 
             else :
-                veloEscape.config(text=f"Velocidad de escape: {func.escapeV(masa,particula)} m/s")
+                veloEscape.config(text=f"Velocidad de escape: {func.escapeV(float(masa),float(carga),float(cargaesfera),float(radio),particula)} m/s")
                 if particula == "Personalizado":
                     distance = func.distanceSP(radio, masa, rapidez, carga, cargaesfera)
                     velo.config(text=f"Rapidez inicial: {rapidez} m/s")
-                    if (float(rapidez) > func.escapeV(masa,particula)):
+                    if (float(rapidez) > func.escapeV(float(masa),float(carga),float(cargaesfera),float(radio),particula)):
                         dist.config(text=f"Distancia recorrida: INFINITA")
                     else:
                         dist.config(text=f"Distancia recorrida: {distance} m")
@@ -207,7 +209,7 @@ def meterdatos(cond, carga,masa,rapidez, radio,cargaesfera,densidad, particula, 
                 else:
                     distance = func.distanceS(radio, dicprotones[particula], dicneutrones[particula], rapidez, particula, cargaesfera)
                     velo.config(text=f"Rapidez inicial: {rapidez} m/s")
-                    if (float(rapidez) > func.escapeV(masa,particula)):
+                    if (float(rapidez) > func.escapeV(float(masa),float(carga),float(cargaesfera),float(radio),particula)):
                         dist.config(text=f"Distancia recorrida: INFINITA")
                     else:
                         dist.config(text=f"Distancia recorrida: {distance} m")
